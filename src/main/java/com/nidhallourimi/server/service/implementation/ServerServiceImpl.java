@@ -9,11 +9,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Collection;
+import java.util.Random;
+
+import static java.lang.Boolean.*;
 
 
 @RequiredArgsConstructor
@@ -54,20 +58,37 @@ public class ServerServiceImpl implements ServerService {
 
     @Override
     public Server get(Long id) {
-        return null;
+
+        if(serverRepo.findById(id).isPresent()){
+            log.info("fetching server by id: {}",id);
+            return serverRepo.findById(id).get();
+            //not found exception is a better approach
+        }
+
+        else
+        {    log.info("server with id : {} does not exist",id);
+            return null;
+        }
     }
 
     @Override
     public Server update(Server server) {
-        return null;
+        log.info("Updating server : {}", server.getName());
+        return serverRepo.save(server);
     }
 
     @Override
     public Boolean delete(Long id) {
-        return null;
+        log.info("deleting server by ID : {}", id);
+        serverRepo.deleteById(id);
+        return TRUE;
+
     }
 
     private String setServerImageUrl(){
+        String[] imageName = {"server1.png", "server2.png"," server3.png"};
+        ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/server/image/"+imageName[new Random().nextInt(3)]).toUriString();
         return null;
     }
 }
