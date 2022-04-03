@@ -77,7 +77,7 @@ public class ServerResource {
                 .build()
         );
     }
-    @GetMapping ( "/get/{id}" )
+    @DeleteMapping ( "/get/{id}" )
     public ResponseEntity<Response> deleteServer (@PathVariable("id") Long id)  {
 
         return ResponseEntity.ok(Response.builder()
