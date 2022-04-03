@@ -19,6 +19,7 @@ import static com.nidhallourimi.server.enumeration.Status.SERVER_UP;
 import static java.time.LocalDateTime.now;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
 import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
 @RestController
@@ -89,10 +90,9 @@ public class ServerResource {
                 .build()
         );
     }
-    @GetMapping (path= "/image/{fileName}",produces = IMAGE_PNG_VALUE)
+    @GetMapping (path= "/image/{fileName}",produces = {IMAGE_PNG_VALUE,IMAGE_JPEG_VALUE})
     public byte[] getServerImage (@PathVariable("fileName") String fileName) throws IOException {
-
-       return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"imageserver"+fileName));
+        return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/imageserver/"+fileName));
 
     }
 }

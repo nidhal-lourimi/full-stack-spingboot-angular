@@ -15,6 +15,7 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Random;
 
 import static java.lang.Boolean.*;
@@ -86,9 +87,9 @@ public class ServerServiceImpl implements ServerService {
     }
 
     private String setServerImageUrl(){
-        String[] imageName = {"server1.png", "server2.png"," server3.png"};
-        ServletUriComponentsBuilder.fromCurrentContextPath()
+        String[] imageName = {"server1.jpg", "server2.png","server3.png"};
+       return ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/server/image/"+imageName[new Random().nextInt(3)]).toUriString();
-        return null;
+
     }
 }
